@@ -4,6 +4,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 # Copier l'application dans le conteneur
-COPY . .
+#COPY . .
 #
 EXPOSE 3333
