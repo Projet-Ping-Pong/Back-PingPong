@@ -13,6 +13,7 @@ services:
       - "5432:5432"
     networks:
       - app-network
+    # command: ["postgres", "-c", "log_statement=all"]
   nodejs:
     depends_on:
       - postgresql
