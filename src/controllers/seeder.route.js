@@ -78,6 +78,196 @@ router.get('/', async (req, res) => {
         g_libelle: "Test",
         g_desc: "Test",
     });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Pièce 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Article 1",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
+    await pieceRepository.createPiece({
+        libelle: "Article 2",
+        prix_vente: 10,
+        prix_catalogue: 20,
+        stock: 50,
+        unite: "KG",
+        type: "Test",
+        g_libelle: "Test",
+        g_desc: "Test",
+    });
     res.status(200).send("Créations avec le seeder");
 });
 

@@ -1,8 +1,9 @@
+const { Op } = require('sequelize');
 const Piece = require('../models/piece.model.js');
 
 
 exports.getAllPiece = async () => {
-    return await Piece.findAll();
+    return await Piece.findAll({ limit: 20 });
 };
 
 exports.getPieceById = async (id) => {
@@ -16,10 +17,12 @@ exports.getPieceById = async (id) => {
 };
 
 exports.getPieceByLibelle = async (libelle) => {
-    const pieceFound = await Piece.findOne({
+    const pieceFound = await Piece.findAll({
         where: {
-            libelle: libelle,
-        }
+            libelle: {
+              [Op.iLike]: `%${libelle}%`,
+            },
+          },
     });
 
     return pieceFound;
