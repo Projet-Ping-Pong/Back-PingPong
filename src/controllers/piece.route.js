@@ -22,7 +22,7 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     await pieceRepository.deletePiece(req.params.id)
-    res.status(200).send({error: "OK"});
+    res.status(200).send({success: "Supprimé"});
 });
 
 exports.initializeRoutes = () => router;

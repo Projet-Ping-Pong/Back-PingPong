@@ -34,8 +34,10 @@ class WebServer {
         Operation.belongsTo(Machine, {foreignKey: 'id_machine'});
         Piece.belongsToMany(Operation, { as: 'children2', foreignKey: 'id_piece', through: 'Gammes' });
         Operation.belongsToMany(Piece, { as: 'parents2', foreignKey: 'id_operation', through: 'Gammes' });
-        sequelize.sync({force:true})
-        // sequelize.sync()
+        Poste.belongsToMany(Machine, { as: 'children3', foreignKey: 'id_poste', through: 'Postes_Machines' });
+        Machine.belongsToMany(Poste, { as: 'parents3', foreignKey: 'id_machine', through: 'Postes_Machines' });
+        // sequelize.sync({force:true})
+        sequelize.sync()
         initializeConfigMiddlewares(this.app);
         this._initializeRoutes();
         initializeErrorMiddlwares(this.app);

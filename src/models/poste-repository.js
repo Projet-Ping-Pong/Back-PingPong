@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Poste = require('../models/poste.model.js');
 
 exports.createPoste = async (body) => {
@@ -34,6 +35,18 @@ exports.getPosteById = async (id) => {
         where: {
             id: id,
         }
+    });
+
+    return posteFound;
+};
+
+exports.getPosteByLibelle = async (libelle) => {
+    const posteFound = await Poste.findAll({
+        where: {
+            libelle: {
+              [Op.iLike]: `%${libelle}%`,
+            },
+          },
     });
 
     return posteFound;

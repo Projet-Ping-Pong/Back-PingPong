@@ -1,7 +1,8 @@
+const { Op } = require('sequelize');
 const Machine = require('../models/machine.model.js');
 
 exports.createMachine = async (body) => {
-    await Machine.create(body);
+    return await Machine.create(body);
 };
 
 exports.updateMachine = async (id, data) => {
@@ -11,7 +12,7 @@ exports.updateMachine = async (id, data) => {
         throw new Error('Pas de machine');
     }
 
-    await Machine.update(
+    return await Machine.update(
         {
             libelle: data.libelle || machineFound.libelle,
             description: data.description || machineFound.description,
@@ -34,6 +35,18 @@ exports.getMachineById = async (id) => {
         where: {
             id: id,
         }
+    });
+
+    return machineFound;
+};
+
+exports.getMachineByLibelle = async (libelle) => {
+    const machineFound = await Machine.findAll({
+        where: {
+            libelle: {
+              [Op.iLike]: `%${libelle}%`,
+            },
+          },
     });
 
     return machineFound;
