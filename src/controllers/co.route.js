@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
     }
     
     const token = generateAuthToken(utilisateur.id, utilisateur.nom_uti);
+    //const token = jwt.generateJWT(utilisateur.nom_uti);
 
     res.status(200).json({ token });
 });

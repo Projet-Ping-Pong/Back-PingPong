@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Operation = require('../models/operation.model.js');
 
 exports.createOperation = async (body) => {
@@ -35,6 +36,18 @@ exports.getOperationById = async (id) => {
         where: {
             id: id,
         }
+    });
+
+    return operationFound;
+};
+
+exports.getOperationByLibelle = async (libelle) => {
+    const operationFound = await Operation.findAll({
+        where: {
+            libelle: {
+              [Op.iLike]: `%${libelle}%`,
+            },
+          },
     });
 
     return operationFound;

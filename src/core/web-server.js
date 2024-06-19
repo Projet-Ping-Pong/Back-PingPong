@@ -6,6 +6,7 @@ const pieceRoutes = require('../controllers/piece.route')
 const machineRoutes = require('../controllers/machine.route')
 const posteRoutes = require('../controllers/poste.route')
 const operationRoutes = require('../controllers/operation.route')
+const gammeRoutes = require('../controllers/gamme.route')
 
 const {sequelize} = require("../models/db");
 const Utilisateur = require("../models/utilisateur.model");
@@ -16,6 +17,9 @@ const Machine = require("../models/machine.model");
 const Poste = require("../models/poste.model");
 const Operation = require("../models/operation.model");
 const Piece_Compo = require("../models/piece_compo.model");
+const Gammes_Operations = require("../models/gamme_operation.model")
+const Gamme = require("../models/gamme.model")
+
 
 class WebServer {
     app = undefined;
@@ -32,10 +36,12 @@ class WebServer {
         Operation.belongsTo(Poste, {foreignKey: 'id_poste'});
         Machine.hasMany(Operation, {foreignKey: 'id_machine'});
         Operation.belongsTo(Machine, {foreignKey: 'id_machine'});
-        Piece.belongsToMany(Operation, { as: 'children2', foreignKey: 'id_piece', through: 'Gammes' });
-        Operation.belongsToMany(Piece, { as: 'parents2', foreignKey: 'id_operation', through: 'Gammes' });
+        Gamme.belongsToMany(Operation, { as: 'children2', foreignKey: 'id_gamme', through: Gammes_Operations });
+        Operation.belongsToMany(Gamme, { as: 'parents2', foreignKey: 'id_operation', through: Gammes_Operations });
         Poste.belongsToMany(Machine, { as: 'children3', foreignKey: 'id_poste', through: 'Postes_Machines' });
         Machine.belongsToMany(Poste, { as: 'parents3', foreignKey: 'id_machine', through: 'Postes_Machines' });
+        Poste.hasMany(Operation, {foreignKey: 'id_poste'});
+        Operation.belongsTo(Poste, {foreignKey: 'id_poste'});
         // sequelize.sync({force:true})
         sequelize.sync()
         initializeConfigMiddlewares(this.app);
@@ -60,6 +66,7 @@ class WebServer {
         this.app.use('/machine', machineRoutes.initializeRoutes());
         this.app.use('/poste', posteRoutes.initializeRoutes());
         this.app.use('/operation', operationRoutes.initializeRoutes());
+        this.app.use('/gamme', gammeRoutes.initializeRoutes());
     }
 }
 

@@ -3,18 +3,19 @@ const router = express.Router();
 const posteRepository = require('../models/poste-repository');
 const postemachineRepository = require('../models/poste_machine-repository');
 const machineRepository = require('../models/machine-repository');
+const { validateJWT } = require('../Security/auth');
 
-router.get('/getAll', async (req, res) => {
+router.get('/getAll', validateJWT, async (req, res) => {
     res.status(200).send(await posteRepository.getAllPoste());
 });
 
-router.post('/rechLibelle', async (req, res) => {
+router.post('/rechLibelle', validateJWT, async (req, res) => {
     if (req.body.libelle !== "" || req.body.libelle !== null) {
         res.status(200).send(await posteRepository.getPosteByLibelle(req.body.libelle));
     }
 });
 
-router.post('/getId', async (req, res) => {
+router.post('/getId', validateJWT, async (req, res) => {
     if (req.body.id !== "" || req.body.id !== null) {
         const poste = await posteRepository.getPosteById(req.body.id)
         const posteMachine = await postemachineRepository.getAllPosteMachineByIdPoste(req.body.id)
@@ -32,8 +33,7 @@ router.post('/getId', async (req, res) => {
     }
 });
 
-router.post('/add', async (req, res) => {
-    console.log(req.body);
+router.post('/add', validateJWT, async (req, res) => {
     const poste = await posteRepository.createPoste(req.body)
     await req.body.posteMachine.forEach(element => {
         postemachineRepository.createPosteMachine({
@@ -44,7 +44,7 @@ router.post('/add', async (req, res) => {
     res.status(200).send(poste);
 });
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', validateJWT, async (req, res) => {
     if (req.params.id !== "" || req.params.id !== null) {
         const listeMachinesBDD = await postemachineRepository.getAllPosteMachineByIdPoste(req.params.id)
         const listeMachines = req.body.machines
@@ -52,7 +52,7 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', validateJWT, async (req, res) => {
     if (req.params.id !== "" || req.params.id !== null) {
         await posteRepository.deletePoste(req.params.id)
         res.status(200).send({ success: "Supprimé" });

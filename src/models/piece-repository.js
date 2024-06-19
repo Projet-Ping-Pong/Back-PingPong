@@ -29,7 +29,7 @@ exports.getPieceByLibelle = async (libelle) => {
 };
 
 exports.createPiece = async (body) => {
-    await Piece.create(body);
+    return await Piece.create(body);
 };
 
 // exports.updatePiece = async (id, data) => {
