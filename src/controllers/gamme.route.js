@@ -8,8 +8,7 @@ router.get('/getAll', validateJWT, async (req, res) => {
 });
 
 router.post('/rechLibelle', validateJWT, async (req, res) => {
-    console.log(req.body);
-    res.status(200).send(await gammeRepository.getPieceByLibelle(req.body.libelle));
+    res.status(200).send(await gammeRepository.getGammeByLibelle(req.body.libelle));
 });
 
 router.post('/add', validateJWT, async (req, res) => {

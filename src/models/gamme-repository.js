@@ -17,17 +17,17 @@ exports.getAllGamme = async () => {
 //     return pieceFound;
 // };
 
-// exports.getPieceByLibelle = async (libelle) => {
-//     const pieceFound = await Piece.findAll({
-//         where: {
-//             libelle: {
-//               [Op.iLike]: `%${libelle}%`,
-//             },
-//           },
-//     });
+exports.getGammeByLibelle = async (libelle) => {
+    const gammeFound = await Gamme.findAll({
+        where: {
+            libelle: {
+              [Op.iLike]: `%${libelle}%`,
+            },
+          },
+    });
 
-//     return pieceFound;
-// };
+    return gammeFound;
+};
 
 exports.createGamme = async (body) => {
     return await Gamme.create(body);

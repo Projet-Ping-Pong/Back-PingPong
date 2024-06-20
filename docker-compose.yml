@@ -27,7 +27,7 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - CONNECTION_STRING=postgresql://Admin:password@localhost:5432/PingPong
+      - CONNECTION_STRING=postgresql://Admin:password@postgresql:5432/PingPong
       - PORT=3333
       - NODE_ENV=development
     command: npm run start
