@@ -1,17 +1,18 @@
 const express = require('express');
 const { initializeConfigMiddlewares, initializeErrorMiddlwares } = require('./middlewares');
+const {sequelize} = require("../models/db");
 const seederRoutes = require('../controllers/seeder.route');
 const connexionRoutes = require('../controllers/co.route')
 const pieceRoutes = require('../controllers/piece.route')
 const machineRoutes = require('../controllers/machine.route')
 const posteRoutes = require('../controllers/poste.route')
+const postemachineRoutes = require('../controllers/poste_machine.route')
 const operationRoutes = require('../controllers/operation.route')
 const gammeRoutes = require('../controllers/gamme.route')
+const gammeoperationRoutes = require('../controllers/gamme_operation.route')
 
-const {sequelize} = require("../models/db");
 const Utilisateur = require("../models/utilisateur.model");
 const Droit = require("../models/droit.model");
-const Utilisateurs_Droits = require("../models/utilisateur_droit.model");
 const Piece = require("../models/piece.model");
 const Machine = require("../models/machine.model");
 const Poste = require("../models/poste.model");
@@ -65,8 +66,10 @@ class WebServer {
         this.app.use('/piece', pieceRoutes.initializeRoutes());
         this.app.use('/machine', machineRoutes.initializeRoutes());
         this.app.use('/poste', posteRoutes.initializeRoutes());
+        this.app.use('/postemachine', postemachineRoutes.initializeRoutes());
         this.app.use('/operation', operationRoutes.initializeRoutes());
         this.app.use('/gamme', gammeRoutes.initializeRoutes());
+        this.app.use('/gammeoperation', gammeoperationRoutes.initializeRoutes());
     }
 }
 

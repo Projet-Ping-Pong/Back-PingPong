@@ -14,9 +14,11 @@ exports.updateOperation = async (id, data) => {
 
     return await Operation.update(
         {
-            libelle: data.libelle || operationFound.libelle,
-            description: data.description || operationFound.description,
-            temps: data.temps || operationFound.temps,
+            libelle: data.libelle,
+            description: data.description,
+            temps: data.temps,
+            id_poste: data.id_poste,
+            id_machine: data.id_machine,
             updatedAt: data.updatedAt
         },
         { where: { id } },

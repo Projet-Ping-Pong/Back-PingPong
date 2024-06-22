@@ -15,6 +15,7 @@ router.post('/rechLibelle', async (req, res) => {
 
 router.post('/getId', validateJWT, async (req, res) => {
     if (req.body.id !== "" || req.body.id !== null) {
+        console.log("machine : " + req.body.id);
         res.status(200).send(await machineRepository.getMachineById(req.body.id));
     }
 });

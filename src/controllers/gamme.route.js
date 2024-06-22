@@ -1,10 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const gammeRepository = require('../models/gamme-repository');
+const gammeoperationRepository = require('../models/gamme_operation-repository');
 const { validateJWT } = require('../Security/auth');
 
 router.get('/getAll', validateJWT, async (req, res) => {
     res.status(200).send(await gammeRepository.getAllGamme());
+});
+
+router.post('/getId', validateJWT, async (req, res) => {
+    if (req.body.id !== "" || req.body.id !== null) {
+        res.status(200).send(await gammeRepository.getGammeById(req.body.id));
+    }
 });
 
 router.post('/rechLibelle', validateJWT, async (req, res) => {
@@ -13,14 +20,33 @@ router.post('/rechLibelle', validateJWT, async (req, res) => {
 
 router.post('/add', validateJWT, async (req, res) => {
     res.status(200).send(await gammeRepository.createGamme(req.body));
+
+    const gamme = await gammeRepository.createGamme(req.body)
+    await req.body.operationList.forEach(element => {
+        gammeoperationRepository.createGammeOperation({
+            id_gamme: gamme.id,
+            id_operation: element.id
+        })
+    });
+    res.status(200).send(gamme);
 });
 
 router.put('/update/:id', validateJWT, async (req, res) => {
-    res.status(200).send(await gammeRepository.updatePiece(req.params.id, req.body));
+    if (req.params.id !== "" || req.params.id !== null) {
+        for (let i = 0; i < req.body.operationList.length; i++) {
+            if (await gammeoperationRepository.getGammeOperationByIdGammeAndIdOperation(req.params.id, req.body.operationList[i].id) === null) {
+                gammeoperationRepository.createGammeOperation({
+                    id_gamme: req.params.id,
+                    id_operation: req.body.operationList[i].id
+                })
+            }
+        }
+        res.status(200).send(await gammeRepository.updateGamme(req.params.id, req.body));
+    }
 });
 
 router.delete('/delete/:id', validateJWT, async (req, res) => {
-    await gammeRepository.deletePiece(req.params.id)
+    await gammeRepository.deleteGamme(req.params.id)
     res.status(200).send({success: "Supprimé"});
 });
 

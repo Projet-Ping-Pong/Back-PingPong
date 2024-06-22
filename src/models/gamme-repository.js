@@ -1,21 +1,28 @@
 const { Op } = require('sequelize');
 const Gamme = require('../models/gamme.model.js');
 const Piece = require('./piece.model.js');
+const { sequelize } = require('../models/db');
+const { QueryTypes, Query } = require('sequelize');
 
 
 exports.getAllGamme = async () => {
-    return await Gamme.findAll({limit: 20});
+    const gammes = await sequelize.query(`SELECT "Gammes".*, "Pieces".libelle as "lib_piece" FROM "Gammes"
+            LEFT JOIN "Pieces" ON "Gammes".id_piece = "Pieces".id
+            LIMIT 20`, {
+        type: QueryTypes.SELECT,
+        });
+    return gammes;
 }
 
-// exports.getPieceById = async (id) => {
-//     const pieceFound = await Piece.findOne({
-//         where: {
-//             id: id,
-//         }
-//     });
+exports.getGammeById = async (id) => {
+    const gammeFound = await Gamme.findOne({
+        where: {
+            id: id,
+        }
+    });
 
-//     return pieceFound;
-// };
+    return gammeFound;
+};
 
 exports.getGammeByLibelle = async (libelle) => {
     const gammeFound = await Gamme.findAll({
@@ -33,23 +40,41 @@ exports.createGamme = async (body) => {
     return await Gamme.create(body);
 };
 
-// // exports.updatePiece = async (id, data) => {
-// //     const pieceFound = await Piece.findOne({ where: { id } });
+exports.updateGamme = async (id, data) => {
+    const gammeFound = await Gamme.findOne({ where: { id } });
 
-// //     if (!pieceFound) {
-// //         throw new Error('Pas de piece');
-// //     }
+    if (!gammeFound) {
+        throw new Error('Pas de gamme');
+    }
+    return await Gamme.update(
+        {
+            libelle: data.libelle,
+            description: data.description,
+            responsable: data.responsable,
+            id_piece: data.id_piece,
+            updatedAt: data.updatedAt
+        },
+        { where: { id } },
+    );
+};
 
-// //     return await Piece.update(
-// //         {
-// //             libelle: data.libelle || pieceFound.libelle,
-// //             description: data.description || pieceFound.description,
-// //             updatedAt: data.updatedAt
-// //         },
-// //         { where: { id } },
-// //     );
-// // };
+exports.updateGammeIdPiece= async (id, id_piece) => {
+    const gammeFound = await Gamme.findOne({ where: { id } });
 
-// exports.deletePiece = async (id) => {
-//     await Piece.destroy({ where: { id } });
-// };
+    if (!gammeFound) {
+        throw new Error('Pas de gamme');
+    }
+    console.log("----------------------------------------");
+    console.log(id_piece);
+    console.log("----------------------------------------");
+    return await Gamme.update(
+        {
+            id_piece: id_piece,
+        },
+        { where: { id } },
+    );
+};
+
+exports.deleteGamme = async (id) => {
+    await Gamme.destroy({ where: { id } });
+};

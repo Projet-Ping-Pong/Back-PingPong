@@ -17,6 +17,7 @@ router.post('/rechLibelle', validateJWT, async (req, res) => {
 
 router.post('/getId', validateJWT, async (req, res) => {
     if (req.body.id !== "" || req.body.id !== null) {
+        console.log("poste : " + req.body.id);
         const poste = await posteRepository.getPosteById(req.body.id)
         const posteMachine = await postemachineRepository.getAllPosteMachineByIdPoste(req.body.id)
         var listeMachine = []
@@ -27,7 +28,7 @@ router.post('/getId', validateJWT, async (req, res) => {
         res.status(200).send({
             id: poste.id,
             libelle: poste.libelle,
-            description: poste.libelle,
+            description: poste.description,
             machines: listeMachine
         });
     }
@@ -46,8 +47,15 @@ router.post('/add', validateJWT, async (req, res) => {
 
 router.put('/update/:id', validateJWT, async (req, res) => {
     if (req.params.id !== "" || req.params.id !== null) {
-        const listeMachinesBDD = await postemachineRepository.getAllPosteMachineByIdPoste(req.params.id)
-        const listeMachines = req.body.machines
+        for (let i = 0; i < req.body.machines.length; i++) {
+            if (await postemachineRepository.getPosteMachineByIdPosteAndIdMachine(req.params.id, req.body.machines[i].id) === null) {
+                postemachineRepository.createPosteMachine({
+                    id_poste: req.params.id,
+                    id_machine: req.body.machines[i].id
+                })
+            }
+        }
+
         res.status(200).send(await posteRepository.updatePoste(req.params.id, req.body));
     }
 });

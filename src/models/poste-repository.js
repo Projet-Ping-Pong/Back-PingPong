@@ -14,8 +14,8 @@ exports.updatePoste = async (id, data) => {
 
     return await Poste.update(
         {
-            libelle: data.libelle || posteFound.libelle,
-            description: data.description || posteFound.description,
+            libelle: data.libelle,
+            description: data.description,
             updatedAt: data.updatedAt
         },
         { where: { id } },

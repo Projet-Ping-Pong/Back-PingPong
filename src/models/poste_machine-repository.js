@@ -23,10 +23,14 @@ exports.updatePosteMachine = async (id_poste, data) => {
     );
 };
 
-exports.deletePosteMachineByIdPoste = async (id_poste) => {
-    await PosteMachine.destroy({ where: { id_poste } });
+exports.deletePosteMachineByIdPosteAndIdMachine = async (id_poste, id_machine) => {
+    await PosteMachine.destroy({ where: { id_poste, id_machine } });
 };
 
 exports.getAllPosteMachineByIdPoste = async (id_poste) => {
     return await PosteMachine.findAll({ where: { id_poste } });
+};
+
+exports.getPosteMachineByIdPosteAndIdMachine = async (id_poste, id_machine) => {
+    return await PosteMachine.findOne({ where: { id_poste, id_machine } });
 };

@@ -14,8 +14,8 @@ exports.updateMachine = async (id, data) => {
 
     return await Machine.update(
         {
-            libelle: data.libelle || machineFound.libelle,
-            description: data.description || machineFound.description,
+            libelle: data.libelle,
+            description: data.description,
             updatedAt: data.updatedAt
         },
         { where: { id } },
