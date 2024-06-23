@@ -64,9 +64,6 @@ exports.updateGammeIdPiece= async (id, id_piece) => {
     if (!gammeFound) {
         throw new Error('Pas de gamme');
     }
-    console.log("----------------------------------------");
-    console.log(id_piece);
-    console.log("----------------------------------------");
     return await Gamme.update(
         {
             id_piece: id_piece,

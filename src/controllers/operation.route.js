@@ -12,8 +12,8 @@ router.get('/getAll', validateJWT, async (req, res) => {
 router.post('/getId', validateJWT, async (req, res) => {
     if (req.body.id !== "" || req.body.id !== null) {
         const operation = await operationRepository.getOperationById(req.body.id)
-        const poste = {}
-        const machine = {}
+        var poste = {}
+        var machine = {}
         if(operation != null){
             if(operation.id_poste !== null){
                 poste = await posteRepository.getPosteById(operation.id_poste)

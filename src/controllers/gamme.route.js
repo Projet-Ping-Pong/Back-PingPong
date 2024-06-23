@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gammeRepository = require('../models/gamme-repository');
+const pieceRepository = require('../models/piece-repository');
 const gammeoperationRepository = require('../models/gamme_operation-repository');
 const { validateJWT } = require('../Security/auth');
 
@@ -19,9 +20,12 @@ router.post('/rechLibelle', validateJWT, async (req, res) => {
 });
 
 router.post('/add', validateJWT, async (req, res) => {
-    res.status(200).send(await gammeRepository.createGamme(req.body));
-
     const gamme = await gammeRepository.createGamme(req.body)
+
+    if (req.body.id_piece != null && req.body.id_piece != undefined) {
+        await pieceRepository.updatePieceIdGamme(req.body.id_piece, gamme.id)
+    }
+
     await req.body.operationList.forEach(element => {
         gammeoperationRepository.createGammeOperation({
             id_gamme: gamme.id,

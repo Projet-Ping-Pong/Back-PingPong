@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const Utilisateur = require('../models/utilisateur.model.js');
 const bcrypt = require('bcryptjs');
 
@@ -7,6 +8,18 @@ exports.getUtiById = async (id) => {
         where: {
             id: id,
         }
+    });
+
+    return utiFound;
+};
+
+exports.getUtiByNomUti = async (nom_uti) => {
+    const utiFound = await Utilisateur.findAll({
+        where: {
+            nom_uti: {
+              [Op.iLike]: `%${nom_uti}%`,
+            },
+          },
     });
 
     return utiFound;
