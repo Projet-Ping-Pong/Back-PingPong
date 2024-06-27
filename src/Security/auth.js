@@ -1,7 +1,7 @@
 const { sign, verify } = require('jsonwebtoken');
 const utiRepository = require('../models/utilisateur-repository');
 
-exports.generateAuthToken = (id_user, name_user) => {
+exports.generateAuthToken = (id_user, name_user, droits) => {
 
     var jwt_secret = process.env.JWT_SECRET
     var jwt_expires_in = process.env.JWT_EXPIRES_IN
@@ -19,7 +19,7 @@ exports.generateAuthToken = (id_user, name_user) => {
         jwt_expires_in = variables["JWT_EXPIRES_IN"]
     }
 
-    return sign({ id_user, name_user }, jwt_secret, { expiresIn: jwt_expires_in });
+    return sign({ id_user, name_user, droits }, jwt_secret, { expiresIn: jwt_expires_in });
 };
 
 exports.validateJWT = (req, res, next) => {

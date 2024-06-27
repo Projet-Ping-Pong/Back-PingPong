@@ -34,6 +34,15 @@ router.post('/getId', validateJWT, async (req, res) => {
     }
 });
 
+router.post('/rechPosteByQual', validateJWT, async (req, res) => {
+    if (req.body.id_uti !== "" || req.body.id_uti !== null) {
+        res.status(200).send(await posteRepository.getPosteByQualification(req.body.id_uti, req.body.libelle));
+    }
+});
+
+
+
+
 router.post('/add', validateJWT, async (req, res) => {
     const poste = await posteRepository.createPoste(req.body)
     await req.body.posteMachine.forEach(element => {

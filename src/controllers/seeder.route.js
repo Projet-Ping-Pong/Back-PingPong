@@ -8,6 +8,7 @@ const gammeRepository = require('../models/gamme-repository');
 const operationRepository = require('../models/operation-repository');
 const posteRepository = require('../models/poste-repository');
 const machineRepository = require('../models/machine-repository');
+const qualificationRepository = require('../models/uti_poste-repository');
 
 // Création d'un utilisateur
 router.get('/', async (req, res) => {
@@ -26,6 +27,20 @@ router.get('/', async (req, res) => {
     });
 
     await utiRepository.createUti({
+        nom: 'RespAtelier2',
+        prenom: 'RespAtelier2',
+        mdp: 'RespAtelier2',
+        nom_uti: 'RespAtelier2',
+    });
+
+    await utiRepository.createUti({
+        nom: 'RespAtelier',
+        prenom: 'RespAtelier',
+        mdp: 'RespAtelier',
+        nom_uti: 'RespAtelier',
+    });
+
+    await utiRepository.createUti({
         nom: 'Commerce',
         prenom: 'Commerce',
         mdp: 'Commerce',
@@ -40,6 +55,11 @@ router.get('/', async (req, res) => {
     await droitRepository.createDroit({
         libelle: 'Atelier',
         niveau: 1,
+    });
+
+    await droitRepository.createDroit({
+        libelle: 'Atelier',
+        niveau: 2,
     });
 
     await droitRepository.createDroit({
@@ -62,15 +82,23 @@ router.get('/', async (req, res) => {
         id_droit: 3,
     });
 
+    await utilisateur_droitRepository.createUtiDroit({
+        id_uti: 4,
+        id_droit: 3,
+    });
+
+    await utilisateur_droitRepository.createUtiDroit({
+        id_uti: 5,
+        id_droit: 4,
+    });
+
     await pieceRepository.createPiece({
         libelle: "Pièce 1",
         prix_vente: 10,
         prix_catalogue: 20,
         stock: 30,
         unite: "KG",
-        type: "Test",
-        g_libelle: "Gamme 1",
-        g_desc: "Test",
+        type: 1,
     });
     await pieceRepository.createPiece({
         libelle: "Pièce 2",
@@ -78,9 +106,7 @@ router.get('/', async (req, res) => {
         prix_catalogue: 20,
         stock: 50,
         unite: "KG",
-        type: "Test",
-        g_libelle: "Gamme 2",
-        g_desc: "Test",
+        type: 2,
     });
     await pieceRepository.createPiece({
         libelle: "Pièce 3",
@@ -88,9 +114,7 @@ router.get('/', async (req, res) => {
         prix_catalogue: 20,
         stock: 70,
         unite: "U",
-        type: "Test",
-        g_libelle: "Gamme 3",
-        g_desc: "Test",
+        type: 3,
     });
     await pieceRepository.createPiece({
         libelle: "Pièce 4",
@@ -98,9 +122,7 @@ router.get('/', async (req, res) => {
         prix_catalogue: 20,
         stock: 10,
         unite: "U",
-        type: "Test",
-        g_libelle: "Gamme 4",
-        g_desc: "Test",
+        type: 4,
     });
 
     await machineRepository.createMachine({
@@ -132,6 +154,21 @@ router.get('/', async (req, res) => {
     await posteRepository.createPoste({
         libelle: "Poste 3",
         description: "" 
+    })
+
+    await qualificationRepository.createQualification({
+        id_uti: 2,
+        id_poste : 1,
+    })
+
+    await qualificationRepository.createQualification({
+        id_uti: 2,
+        id_poste : 2,
+    })
+
+    await qualificationRepository.createQualification({
+        id_uti: 2,
+        id_poste : 3,
     })
 
     await operationRepository.createOperation({

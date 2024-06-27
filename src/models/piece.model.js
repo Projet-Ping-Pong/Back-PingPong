@@ -10,7 +10,7 @@ const Piece = sequelize.define(
         prix_catalogue: { type: DataTypes.INTEGER, allowNull: true },
         stock: { type: DataTypes.INTEGER, allowNull: true },
         unite: { type: DataTypes.STRING, allowNull: true },
-        type: { type: DataTypes.STRING, allowNull: false },
+        type: { type: DataTypes.INTEGER, allowNull: false },
         id_gamme: { foreignKey: true, type: DataTypes.INTEGER, allowNull: true },
     },
     { tableName: 'Pieces' },

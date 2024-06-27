@@ -24,6 +24,7 @@ const Piece_Compo = require("../models/piece_compo.model");
 const Gammes_Operations = require("../models/gamme_operation.model")
 const Gamme = require("../models/gamme.model")
 const Realisation = require("../models/realisation.model")
+const Qualification = require("../models/uti_poste.model")
 
 
 class WebServer {
@@ -56,6 +57,9 @@ class WebServer {
         Realisation.belongsTo(Machine, {foreignKey: 'id_machine'});
         Utilisateur.hasMany(Realisation, {foreignKey: 'id_uti'});
         Realisation.belongsTo(Utilisateur, {foreignKey: 'id_uti'});
+
+        Utilisateur.belongsToMany(Poste, { as: 'children4', foreignKey: 'id_uti', through: Qualification });
+        Poste.belongsToMany(Utilisateur, { as: 'parents4', foreignKey: 'id_poste', through: Qualification });
 
         // sequelize.sync({force:true})
         sequelize.sync()

@@ -15,6 +15,20 @@ exports.getPieceById = async (id) => {
 
     return pieceFound;
 };
+exports.getPieceByIdWhitoutInter = async (id) => {
+    const pieceFound = await Piece.findOne({
+        where: {
+            id: id,
+            type: {
+                [Op.not]: 1
+            }
+        }
+    });
+
+    return pieceFound;
+};
+
+
 
 exports.getPieceByLibelle = async (libelle) => {
     const pieceFound = await Piece.findAll({
@@ -22,6 +36,21 @@ exports.getPieceByLibelle = async (libelle) => {
             libelle: {
               [Op.iLike]: `%${libelle}%`,
             },
+          },
+    });
+
+    return pieceFound;
+};
+
+exports.getPieceCompoByLibelle = async (libelle) => {
+    const pieceFound = await Piece.findAll({
+        where: {
+            libelle: {
+                [Op.iLike]: `%${libelle}%`,
+            },
+            type: {
+                [Op.ne]: 1,
+            }
           },
     });
 
@@ -42,7 +71,7 @@ exports.updatePiece = async (id, data) => {
     return await Piece.update(
         {
             libelle: data.libelle,
-            prix_vente: data.prixVente,
+            prix_vente: data.prix_vente,
             prix_catalogue: data.prix_catalogue,
             stock: data.stock,
             unite: data.unite,

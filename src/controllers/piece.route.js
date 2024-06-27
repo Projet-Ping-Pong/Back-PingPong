@@ -15,9 +15,20 @@ router.post('/getId', validateJWT, async (req, res) => {
     }
 });
 
+router.post('/getIdWithoutInter', validateJWT, async (req, res) => {
+    if (req.body.id !== "" || req.body.id !== null) {
+        res.status(200).send(await pieceRepository.getPieceByIdWhitoutInter(req.body.id));
+    }
+});
+
 router.post('/rechLibelle', validateJWT, async (req, res) => {
     console.log(req.body);
     res.status(200).send(await pieceRepository.getPieceByLibelle(req.body.libelle));
+});
+
+router.post('/rechCompoLibelle', validateJWT, async (req, res) => {
+    console.log(req.body);
+    res.status(200).send(await pieceRepository.getPieceCompoByLibelle(req.body.libelle));
 });
 
 router.post('/add', validateJWT, async (req, res) => {
@@ -49,7 +60,8 @@ router.put('/update/:id', validateJWT, async (req, res) => {
                 id_piece_compose: req.body.listCompo[i].id,
                 quantite: req.body.listCompo[i].quantite
             }
-            if (await piececompoRepository.getPieceCompoByIdPieceAndCompo(parseInt(compo.id_piece_composant), parseInt(compo.id_piece_compose))) {
+            const compoExist = await piececompoRepository.getPieceCompoByIdPieceAndCompo(parseInt(compo.id_piece_composant), parseInt(compo.id_piece_compose))
+            if (compoExist.length > 0) {
                 await piececompoRepository.updatePieceCompo(compo, compo.id_piece_composant, compo.id_piece_compose)
             } else {
                 await piececompoRepository.createPieceCompo(compo)
@@ -60,6 +72,10 @@ router.put('/update/:id', validateJWT, async (req, res) => {
 });
 
 router.delete('/delete/:id', validateJWT, async (req, res) => {
+    const piece = await pieceRepository.getPieceById(req.params.id)
+    if(piece.id_gamme !== null && piece.id_gamme !== undefined){
+        await gammeRepository.updateGammeIdPiece(piece.id_gamme, null)
+    }
     await pieceRepository.deletePiece(req.params.id)
     res.status(200).send({ success: "Supprimé" });
 });

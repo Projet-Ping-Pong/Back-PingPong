@@ -1,7 +1,7 @@
 const UtilisateurDroit = require('../models/utilisateur_droit.model.js');
 
 exports.getUtiDroitByIdUti = async (id_uti) => {
-    const droitFound = await UtilisateurDroit.findOne({
+    const droitFound = await UtilisateurDroit.findAll({
         where: {
             id_uti: id_uti,
         }

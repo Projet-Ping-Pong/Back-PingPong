@@ -1,5 +1,7 @@
 const { Op } = require('sequelize');
 const Poste = require('../models/poste.model.js');
+const { QueryTypes, Query } = require('sequelize');
+const { sequelize } = require('../models/db');
 
 exports.createPoste = async (body) => {
     return await Poste.create(body);
@@ -50,4 +52,17 @@ exports.getPosteByLibelle = async (libelle) => {
     });
 
     return posteFound;
+};
+
+exports.getPosteByQualification = async (id_uti, rech) => {
+    const postes = await sequelize.query(`
+        SELECT "Postes".*
+        FROM "Postes" LEFT JOIN "Qualifications" ON "Postes".id = "Qualifications".id_poste
+        WHERE "Qualifications".id_uti = :id_uti
+        AND LOWER("Postes".libelle) LIKE LOWER(:rech) `, {
+        replacements: { id_uti: id_uti, rech: `%${rech}%` },
+        type: QueryTypes.SELECT,
+    });
+
+    return postes;
 };

@@ -16,6 +16,10 @@ router.get('/getAll', validateJWT, async (req, res) => {
     res.status(200).send(await realisationRepository.getAllRea());
 });
 
+router.post('/getById', validateJWT, async (req, res) => {
+    res.status(200).send(await realisationRepository.getByID(req.body.id));
+});
+
 router.post('/rechLibelle', validateJWT, async (req, res) => {
     console.log(req.body);
     res.status(200).send(await realisationRepository.getReaByLibelle(req.body.libelle));

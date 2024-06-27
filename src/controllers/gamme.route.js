@@ -50,6 +50,10 @@ router.put('/update/:id', validateJWT, async (req, res) => {
 });
 
 router.delete('/delete/:id', validateJWT, async (req, res) => {
+    const gamme = await gammeRepository.getGammeById(req.params.id)
+    if(gamme.id_piece !== null){
+        await pieceRepository.updatePieceIdGamme(gamme.id_piece, null)
+    }
     await gammeRepository.deleteGamme(req.params.id)
     res.status(200).send({success: "Supprimé"});
 });
