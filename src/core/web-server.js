@@ -26,6 +26,15 @@ const Gamme = require("../models/gamme.model")
 const Realisation = require("../models/realisation.model")
 const Qualification = require("../models/uti_poste.model")
 
+const clientRoutes = require('../controllers/Commerce/Client/client.route')
+
+const Client = require("../models/Commerce/Client/client.model")
+const Commande_Vente = require("../models/Commerce/CommandeVente/commande_vente.model")
+const Ligne_Vente = require("../models/Commerce/LigneCmdVente/ligne_vente.model")
+const Devis = require("../models/Commerce/Devis/devis.model")
+const Fournisseur = require("../models/Commerce/Fournisseur/fournisseur.model")
+const Commande_Achat = require("../models/Commerce/CommandeAchat/commande_achat.model")
+const Ligne_Achat = require("../models/Commerce/LigneCmdAchat/ligne_achat.model")
 
 class WebServer {
     app = undefined;
@@ -61,6 +70,24 @@ class WebServer {
         Utilisateur.belongsToMany(Poste, { as: 'children4', foreignKey: 'id_uti', through: Qualification });
         Poste.belongsToMany(Utilisateur, { as: 'parents4', foreignKey: 'id_poste', through: Qualification });
 
+        Piece.hasMany(Ligne_Vente, {foreignKey: 'id_piece'})
+        Ligne_Vente.belongsTo(Piece, {foreignKey: 'id_piece'});
+        Devis.hasMany(Ligne_Vente, {foreignKey: 'id_devis'})
+        Ligne_Vente.belongsTo(Devis, {foreignKey: 'id_devis'});
+        Commande_Vente.hasMany(Ligne_Vente, {foreignKey: 'id_commande'})
+        Ligne_Vente.belongsTo(Commande_Vente, {foreignKey: 'id_commande'});
+        Client.hasMany(Devis, {foreignKey: 'id_client'})
+        Devis.belongsTo(Client, {foreignKey: 'id_client'});
+        Client.hasMany(Commande_Vente, {foreignKey: 'id_client'})
+        Commande_Vente.belongsTo(Client, {foreignKey: 'id_client'});
+
+        Piece.hasMany(Ligne_Achat, {foreignKey: 'id_piece'})
+        Ligne_Achat.belongsTo(Piece, {foreignKey: 'id_piece'});
+        Commande_Achat.hasMany(Ligne_Achat, {foreignKey: 'id_commande'})
+        Ligne_Achat.belongsTo(Commande_Achat, {foreignKey: 'id_commande'});
+        Fournisseur.hasMany(Commande_Achat, {foreignKey: 'id_fournisseur'})
+        Commande_Achat.belongsTo(Fournisseur, {foreignKey: 'id_fournisseur'});
+
         // sequelize.sync({force:true})
         sequelize.sync()
         initializeConfigMiddlewares(this.app);
@@ -91,6 +118,8 @@ class WebServer {
         this.app.use('/gamme', gammeRoutes.initializeRoutes());
         this.app.use('/gammeoperation', gammeoperationRoutes.initializeRoutes());
         this.app.use('/realisation', realisationRoutes.initializeRoutes());
+
+        this.app.use('/client', clientRoutes.initializeRoutes());
     }
 }
 

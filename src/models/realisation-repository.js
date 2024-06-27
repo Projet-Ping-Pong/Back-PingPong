@@ -34,8 +34,6 @@ exports.getByID = async (id) => {
     return rea;
 };
 
-
-
 exports.getReaByLibelle = async (libelle) => {
     const reaFound = await Rea.findAll({
         where: {
