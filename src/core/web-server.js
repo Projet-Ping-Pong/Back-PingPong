@@ -27,6 +27,7 @@ const Realisation = require("../models/realisation.model")
 const Qualification = require("../models/uti_poste.model")
 
 const clientRoutes = require('../controllers/Commerce/Client/client.route')
+const fournisseurRoutes = require('../controllers/Commerce/Fournisseur/fournisseur.route')
 
 const Client = require("../models/Commerce/Client/client.model")
 const Commande_Vente = require("../models/Commerce/CommandeVente/commande_vente.model")
@@ -120,6 +121,7 @@ class WebServer {
         this.app.use('/realisation', realisationRoutes.initializeRoutes());
 
         this.app.use('/client', clientRoutes.initializeRoutes());
+        this.app.use('/fournisseur', fournisseurRoutes.initializeRoutes());
     }
 }
 
