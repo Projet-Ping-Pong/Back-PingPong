@@ -20,7 +20,7 @@ exports.getPieceByIdWhitoutInter = async (id) => {
         where: {
             id: id,
             type: {
-                [Op.not]: 1
+                [Op.not]: 2
             }
         }
     });
@@ -51,6 +51,19 @@ exports.getPieceCompoByLibelle = async (libelle) => {
             type: {
                 [Op.ne]: 1,
             }
+          },
+    });
+
+    return pieceFound;
+};
+
+exports.getPieceLivrableByLibelle = async (libelle) => {
+    const pieceFound = await Piece.findAll({
+        where: {
+            libelle: {
+                [Op.iLike]: `%${libelle}%`,
+            },
+            type: 1,
           },
     });
 

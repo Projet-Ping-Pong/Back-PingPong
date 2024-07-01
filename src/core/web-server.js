@@ -28,6 +28,8 @@ const Qualification = require("../models/uti_poste.model")
 
 const clientRoutes = require('../controllers/Commerce/Client/client.route')
 const fournisseurRoutes = require('../controllers/Commerce/Fournisseur/fournisseur.route')
+const devisRoutes = require('../controllers/Commerce/Devis/devis.route')
+const lignedevisRoutes = require('../controllers/Commerce/Devis/ligne_devis.route')
 
 const Client = require("../models/Commerce/Client/client.model")
 const Commande_Vente = require("../models/Commerce/CommandeVente/commande_vente.model")
@@ -122,6 +124,8 @@ class WebServer {
 
         this.app.use('/client', clientRoutes.initializeRoutes());
         this.app.use('/fournisseur', fournisseurRoutes.initializeRoutes());
+        this.app.use('/devis', devisRoutes.initializeRoutes());
+        this.app.use('/lignedevis', lignedevisRoutes.initializeRoutes());
     }
 }
 

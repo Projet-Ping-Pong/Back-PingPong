@@ -31,6 +31,11 @@ router.post('/rechCompoLibelle', validateJWT, async (req, res) => {
     res.status(200).send(await pieceRepository.getPieceCompoByLibelle(req.body.libelle));
 });
 
+router.post('/rechLivrable', validateJWT, async (req, res) => {
+    console.log(req.body);
+    res.status(200).send(await pieceRepository.getPieceLivrableByLibelle(req.body.libelle));
+});
+
 router.post('/add', validateJWT, async (req, res) => {
     const piece = await pieceRepository.createPiece(req.body)
     if (req.body.id_gamme != null && req.body.id_gamme != undefined) {
