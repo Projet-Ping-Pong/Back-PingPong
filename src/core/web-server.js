@@ -3,6 +3,9 @@ const { initializeConfigMiddlewares, initializeErrorMiddlwares } = require('./mi
 const {sequelize} = require("../models/db");
 const seederRoutes = require('../controllers/seeder.route');
 const connexionRoutes = require('../controllers/co.route')
+
+// Atelier
+
 const pieceRoutes = require('../controllers/piece.route')
 const machineRoutes = require('../controllers/machine.route')
 const posteRoutes = require('../controllers/poste.route')
@@ -12,10 +15,8 @@ const gammeRoutes = require('../controllers/gamme.route')
 const gammeoperationRoutes = require('../controllers/gamme_operation.route')
 const piececompoRoutes = require('../controllers/piece_compo.route')
 const realisationRoutes = require('../controllers/realisation.route')
-const utilisateurRoutes = require('../controllers/utilisateur.route')
 
-const Utilisateur = require("../models/utilisateur.model");
-const Droit = require("../models/droit.model");
+
 const Piece = require("../models/piece.model");
 const Machine = require("../models/machine.model");
 const Poste = require("../models/poste.model");
@@ -25,6 +26,9 @@ const Gammes_Operations = require("../models/gamme_operation.model")
 const Gamme = require("../models/gamme.model")
 const Realisation = require("../models/realisation.model")
 const Qualification = require("../models/uti_poste.model")
+
+
+// Commerce
 
 const clientRoutes = require('../controllers/Commerce/Client/client.route')
 const fournisseurRoutes = require('../controllers/Commerce/Fournisseur/fournisseur.route')
@@ -38,6 +42,18 @@ const Devis = require("../models/Commerce/Devis/devis.model")
 const Fournisseur = require("../models/Commerce/Fournisseur/fournisseur.model")
 const Commande_Achat = require("../models/Commerce/CommandeAchat/commande_achat.model")
 const Ligne_Achat = require("../models/Commerce/LigneCmdAchat/ligne_achat.model")
+
+// Admin
+
+const utilisateurRoutes = require('../controllers/Admin/Utilisateur/utilisateur.route')
+const droitRoutes = require('../controllers/Admin/Droit/droit.route')
+const utilisateurdroitRoutes = require("../controllers/Admin/Utilisateur/utilisateur_droit.route")
+const utilisateurposteRoutes = require("../controllers/Admin/Utilisateur/utilisateur_poste.route")
+
+const Utilisateur = require("../models/utilisateur.model");
+const Droit = require("../models/droit.model");
+
+
 
 class WebServer {
     app = undefined;
@@ -111,7 +127,7 @@ class WebServer {
     _initializeRoutes() {
         this.app.use('/seeder', seederRoutes.initializeRoutes());
         this.app.use('/login', connexionRoutes.initializeRoutes());
-        this.app.use('/utilisateur', utilisateurRoutes.initializeRoutes());
+
         this.app.use('/piece', pieceRoutes.initializeRoutes());
         this.app.use('/piececompo', piececompoRoutes.initializeRoutes());
         this.app.use('/machine', machineRoutes.initializeRoutes());
@@ -126,6 +142,11 @@ class WebServer {
         this.app.use('/fournisseur', fournisseurRoutes.initializeRoutes());
         this.app.use('/devis', devisRoutes.initializeRoutes());
         this.app.use('/lignedevis', lignedevisRoutes.initializeRoutes());
+
+        this.app.use('/utilisateur', utilisateurRoutes.initializeRoutes());
+        this.app.use('/droit', droitRoutes.initializeRoutes());
+        this.app.use('/utilisateurdroit', utilisateurdroitRoutes.initializeRoutes());
+        this.app.use('/utilisateurposte', utilisateurposteRoutes.initializeRoutes());
     }
 }
 

@@ -5,7 +5,7 @@ const Utilisateur_Droit = sequelize.define(
     'Utilisateurs_Droits',
     {
         id_uti: { primaryKey: true, type: DataTypes.INTEGER, allowNull: false },
-        id_droit: { type: DataTypes.INTEGER, allowNull: false },
+        id_droit: { primaryKey: true, type: DataTypes.INTEGER, allowNull: false },
     },
     { tableName: 'Utilisateurs_Droits' },
 );

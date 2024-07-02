@@ -10,6 +10,7 @@ const posteRepository = require('../models/poste-repository');
 const machineRepository = require('../models/machine-repository');
 const qualificationRepository = require('../models/uti_poste-repository');
 
+
 // Création d'un utilisateur
 router.get('/', async (req, res) => {
     await utiRepository.createUti({

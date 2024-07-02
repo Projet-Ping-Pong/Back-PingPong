@@ -51,7 +51,7 @@ exports.validateJWT = (req, res, next) => {
             return
         }
         try {
-            req.user = await utiRepository.getUserByNomUti(user.name_user)
+            req.user = await utiRepository.getUtiByNomUti(user.name_user)
             return next()
         } catch (e) {
             console.log(e)
