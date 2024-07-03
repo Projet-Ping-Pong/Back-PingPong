@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const utilisateurDroitRepository = require('../../../models/utilisateur_droit-repository');
+const utilisateurDroitRepository = require('../../../models/Admin/Utilisateur/utilisateur_droit-repository');
 
 const { validateJWT } = require('../../../Security/auth');
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const utilisateurPosteRepository = require('../../../models/uti_poste-repository');
+const utilisateurPosteRepository = require('../../../models/Admin/Qualification/uti_poste-repository');
 
 const { validateJWT } = require('../../../Security/auth');
 

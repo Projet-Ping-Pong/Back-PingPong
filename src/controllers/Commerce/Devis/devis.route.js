@@ -15,7 +15,7 @@ router.post('/add', validateJWT, async (req, res) => {
                     prix_vente: req.body.listePiece[i].prix_vente,
                     quantite: req.body.listePiece[i].quantite,
                     unite: req.body.listePiece[i].unite,
-                    id_piece: req.body.listePiece[i].id,
+                    id_piece: req.body.listePiece[i].id_piece,
                     id_devis: devis.id,
                     id_commande: null,
                 });
@@ -113,7 +113,7 @@ router.put('/update/:id', validateJWT, async (req, res) => {
                     await ligneDevisRepository.createLigneDevis(ligneDevis)
                 }
             }
-            const devis = await devisRepository.updateDevis(req.params.id, req.body);
+            const devis = await devisRepository.updateDevis(req.params.id, req.body.devis);
             res.status(200).send(devis)
         } else {
             res.status(400).send({ erreur: "L'id du devis est invalide" });

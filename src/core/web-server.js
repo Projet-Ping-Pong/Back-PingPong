@@ -6,26 +6,26 @@ const connexionRoutes = require('../controllers/co.route')
 
 // Atelier
 
-const pieceRoutes = require('../controllers/piece.route')
-const machineRoutes = require('../controllers/machine.route')
-const posteRoutes = require('../controllers/poste.route')
-const postemachineRoutes = require('../controllers/poste_machine.route')
-const operationRoutes = require('../controllers/operation.route')
-const gammeRoutes = require('../controllers/gamme.route')
-const gammeoperationRoutes = require('../controllers/gamme_operation.route')
-const piececompoRoutes = require('../controllers/piece_compo.route')
-const realisationRoutes = require('../controllers/realisation.route')
+const pieceRoutes = require('../controllers/Atelier/Piece/piece.route')
+const machineRoutes = require('../controllers/Atelier/Machine/machine.route')
+const posteRoutes = require('../controllers/Atelier/Poste/poste.route')
+const postemachineRoutes = require('../controllers/Atelier/Poste/poste_machine.route')
+const operationRoutes = require('../controllers/Atelier/Operation/operation.route')
+const gammeRoutes = require('../controllers/Atelier/Gamme/gamme.route')
+const gammeoperationRoutes = require('../controllers/Atelier/Gamme/gamme_operation.route')
+const piececompoRoutes = require('../controllers/Atelier/Piece/piece_compo.route')
+const realisationRoutes = require('../controllers/Atelier/Realisation/realisation.route')
 
 
-const Piece = require("../models/piece.model");
-const Machine = require("../models/machine.model");
-const Poste = require("../models/poste.model");
-const Operation = require("../models/operation.model");
-const Piece_Compo = require("../models/piece_compo.model");
-const Gammes_Operations = require("../models/gamme_operation.model")
-const Gamme = require("../models/gamme.model")
-const Realisation = require("../models/realisation.model")
-const Qualification = require("../models/uti_poste.model")
+const Piece = require("../models/Atelier/Piece/piece.model");
+const Machine = require("../models/Atelier/Machine/machine.model");
+const Poste = require("../models/Atelier/Poste/poste.model");
+const Operation = require("../models/Atelier/Operation/operation.model");
+const Piece_Compo = require("../models/Atelier/Piece/piece_compo.model");
+const Gammes_Operations = require("../models/Atelier/Gamme/gamme_operation.model")
+const Gamme = require("../models/Atelier/Gamme/gamme.model")
+const Realisation = require("../models/Atelier/Realisation/realisation.model")
+const Qualification = require("../models/Admin/Qualification/uti_poste.model")
 
 
 // Commerce
@@ -34,6 +34,10 @@ const clientRoutes = require('../controllers/Commerce/Client/client.route')
 const fournisseurRoutes = require('../controllers/Commerce/Fournisseur/fournisseur.route')
 const devisRoutes = require('../controllers/Commerce/Devis/devis.route')
 const lignedevisRoutes = require('../controllers/Commerce/Devis/ligne_devis.route')
+const commandeVenteRoutes = require('../controllers/Commerce/CommandeVente/commande_vente_route')
+const ligneventeRoutes = require('../controllers/Commerce/CommandeVente/ligne_vente.route')
+const commandeAchatRoutes = require('../controllers/Commerce/CommandeAchat/commande_achat.route')
+const ligneachatRoutes = require('../controllers/Commerce/CommandeAchat/ligne_achat.route')
 
 const Client = require("../models/Commerce/Client/client.model")
 const Commande_Vente = require("../models/Commerce/CommandeVente/commande_vente.model")
@@ -50,8 +54,8 @@ const droitRoutes = require('../controllers/Admin/Droit/droit.route')
 const utilisateurdroitRoutes = require("../controllers/Admin/Utilisateur/utilisateur_droit.route")
 const utilisateurposteRoutes = require("../controllers/Admin/Utilisateur/utilisateur_poste.route")
 
-const Utilisateur = require("../models/utilisateur.model");
-const Droit = require("../models/droit.model");
+const Utilisateur = require("../models/Admin/Utilisateur/utilisateur.model");
+const Droit = require("../models/Admin/Droit/droit.model");
 
 
 
@@ -106,8 +110,14 @@ class WebServer {
         Ligne_Achat.belongsTo(Commande_Achat, {foreignKey: 'id_commande'});
         Fournisseur.hasMany(Commande_Achat, {foreignKey: 'id_fournisseur'})
         Commande_Achat.belongsTo(Fournisseur, {foreignKey: 'id_fournisseur'});
+        Fournisseur.hasMany(Ligne_Achat, {foreignKey: 'id_fournisseur'})
+        Ligne_Achat.belongsTo(Fournisseur, {foreignKey: 'id_fournisseur'});
+
+        Fournisseur.hasMany(Piece, {foreignKey: 'id_fournisseur'})
+        Piece.belongsTo(Fournisseur, {foreignKey: 'id_fournisseur'});
 
         // sequelize.sync({force:true})
+        // sequelize.sync({alter: true})
         sequelize.sync()
         initializeConfigMiddlewares(this.app);
         this._initializeRoutes();
@@ -142,6 +152,10 @@ class WebServer {
         this.app.use('/fournisseur', fournisseurRoutes.initializeRoutes());
         this.app.use('/devis', devisRoutes.initializeRoutes());
         this.app.use('/lignedevis', lignedevisRoutes.initializeRoutes());
+        this.app.use('/commandevente', commandeVenteRoutes.initializeRoutes());
+        this.app.use('/lignevente', ligneventeRoutes.initializeRoutes());
+        this.app.use('/commandeachat', commandeAchatRoutes.initializeRoutes());
+        this.app.use('/ligneachat', ligneachatRoutes.initializeRoutes());
 
         this.app.use('/utilisateur', utilisateurRoutes.initializeRoutes());
         this.app.use('/droit', droitRoutes.initializeRoutes());

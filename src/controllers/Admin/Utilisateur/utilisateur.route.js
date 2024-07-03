@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const utiRepository = require('../../../models/utilisateur-repository');
-const droitRepository = require('../../../models/droit-repository');
-const posteRepository = require('../../../models/poste-repository');
-const utilisateurDroitRepository = require('../../../models/utilisateur_droit-repository');
-const qualificationRepository = require('../../../models/uti_poste-repository');
+const utiRepository = require('../../../models/Admin/Utilisateur/utilisateur-repository');
+const droitRepository = require('../../../models/Admin/Droit/droit-repository');
+const posteRepository = require('../../../models/Atelier/Poste/poste-repository');
+const utilisateurDroitRepository = require('../../../models/Admin/Utilisateur/utilisateur_droit-repository');
+const qualificationRepository = require('../../../models/Admin/Qualification/uti_poste-repository');
 
 const { validateJWT } = require('../../../Security/auth');
 
@@ -114,7 +114,7 @@ router.put('/update/:id', validateJWT, async (req, res) => {
                 }
             }
 
-            const utilisateur = await utiRepository.updateUtilisateur(req.params.id, req.body)
+            const utilisateur = await utiRepository.updateUtilisateur(req.params.id, req.body.utilisateur)
             res.status(200).send(utilisateur)
         } else {
             res.status(400).send({ erreur: "L'id de l'utilisateur est invalide" });

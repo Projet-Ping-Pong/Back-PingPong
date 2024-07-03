@@ -1,5 +1,5 @@
 const { sign, verify } = require('jsonwebtoken');
-const utiRepository = require('../models/utilisateur-repository');
+const utiRepository = require('../models/Admin/Utilisateur/utilisateur-repository');
 
 exports.generateAuthToken = (id_user, name_user, droits) => {
 
@@ -59,3 +59,28 @@ exports.validateJWT = (req, res, next) => {
         }
     })
 }
+
+// exports.validateDroit = (service) => {
+//     const token = req.headers.authorization.split(" ")[1];
+//     verify(token, jwt_secret, { algorithm: "HS256" }, async (err, user) => {
+//         if (err) {
+//             res.status(401).end()
+//             return
+//         }
+//         try {
+//             let isService = false
+//             user.droits.forEach(element => {
+//                 if(element === service){
+//                     isService = true
+//                 }
+//             });
+//             if (!isService) {
+//                 res.status(401).end()
+//             }
+//         } catch (e) {
+//             console.log(e)
+//             res.status(401).end()
+//         }
+//     })
+//     console.log(service);
+// }

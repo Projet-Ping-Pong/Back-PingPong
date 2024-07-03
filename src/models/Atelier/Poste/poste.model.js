@@ -1,15 +1,15 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../db');
 
-const Devis = sequelize.define(
-    'Devis',
+const Poste = sequelize.define(
+    'Postes',
     {
         id: { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true },
         libelle: { type: DataTypes.STRING, allowNull: false },
-        delai: { type: DataTypes.DATE, allowNull: false },
-        date: { type: DataTypes.DATE, allowNull: false },
+        description: { type: DataTypes.STRING, allowNull: true },
+        occupe: { type: DataTypes.BOOLEAN, allowNull: true },
     },
-    { tableName: 'Devis' },
+    { tableName: 'Postes' },
 );
 
-module.exports = Devis;
+module.exports = Poste;

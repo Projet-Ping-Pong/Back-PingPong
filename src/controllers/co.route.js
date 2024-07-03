@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const utilisateurRepository = require('../models/utilisateur-repository');
-const utilisateurDroitRepository = require('../models/utilisateur_droit-repository');
-const droitRepository = require('../models/droit-repository');
+const utilisateurRepository = require('../models/Admin/Utilisateur/utilisateur-repository');
+const utilisateurDroitRepository = require('../models/Admin/Utilisateur/utilisateur_droit-repository');
+const droitRepository = require('../models/Admin/Droit/droit-repository');
 const { passwordsAreEqual } = require('../Security/crypt');
 const { generateAuthToken } = require('../Security/auth');
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { validateJWT } = require('../../../Security/auth');
-const droitRepository = require('../../../models/droit-repository');
+const droitRepository = require('../../../models/Admin/Droit/droit-repository');
 
 router.post('/add', validateJWT, async (req, res) => {
     try {

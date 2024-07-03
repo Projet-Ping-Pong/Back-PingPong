@@ -38,12 +38,14 @@ exports.updateDevis = async (id, data) => {
         throw new Error("Il n'existe aucun devis avec l'id : " + id);
     }
 
-    return await Devis.update(
-        {
+    console.log(id);
+    console.log(data);
+
+    return await Devis.update({
             libelle: data.libelle,
             delai: data.delai,
             date: data.date,
-            updatedAt: data.updatedAt
+            updatedAt: data.updatedAt,
         },
         { where: { id } },
     );
