@@ -75,6 +75,23 @@ router.post('/getId', validateJWT, async (req, res) => {
     }
 });
 
+router.get('/generecsv/:mois', async (req, res) => {
+    try {
+        const commandes = await commandeVenteRepository.getCommandesByMois(req.params.mois);
+        let csv = "id;libelle;date;client;"
+        commandes.forEach(element => {
+            csv += `\n${element.id};${element.libelle};${element.date};${element.raison_sociale}`
+        });
+        res.header('Content-Type', 'text/csv');
+        res.header('Content-Disposition', 'attachment; filename="facture.csv"');
+        res.status(200);
+        res.send(csv);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ erreur: error.message });
+    }
+});
+
 router.post('/rechLibelle', async (req, res) => {
     try {
         if (req.body.libelle) {

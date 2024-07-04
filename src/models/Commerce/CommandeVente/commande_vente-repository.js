@@ -1,5 +1,7 @@
 const { Op } = require('sequelize');
 const CommandeVente = require('.//commande_vente.model');
+const { QueryTypes, Query } = require('sequelize');
+const { sequelize } = require('../../db');
 
 exports.createCommandeVente = async (body) => {
     return await CommandeVente.create(body);
@@ -17,6 +19,15 @@ exports.getCommandeVenteById = async (id) => {
     });
 
     return CommandeVenteFound;
+};
+
+exports.getCommandesByMois = async (mois) => {
+    return await sequelize.query(`SELECT "Commandes_Ventes".id, "Commandes_Ventes".libelle, "Commandes_Ventes".date, "Clients".raison_sociale
+        FROM "Commandes_Ventes" LEFT JOIN "Clients" ON "Commandes_Ventes".id_client = "Clients".id
+        WHERE EXTRACT(MONTH FROM "Commandes_Ventes".date) = :mois `, {
+        replacements: { mois: mois },
+        type: QueryTypes.SELECT,
+    });
 };
 
 exports.getCommandeVenteByLibelle = async (libelle) => {

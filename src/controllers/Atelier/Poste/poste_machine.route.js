@@ -5,7 +5,7 @@ const { validateJWT } = require('../../../Security/auth');
 
 router.delete('/delete', validateJWT, async (req, res) => {
     try {
-        if (req.params.id) {
+        if (req.body.id_poste && req.body.id_machine) {
             await postemachineRepository.deletePosteMachineByIdPosteAndIdMachine(req.body.id_poste, req.body.id_machine)
             res.status(200).send({ success: "Supprimé" });
         } else {
