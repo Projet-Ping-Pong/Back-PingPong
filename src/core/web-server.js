@@ -116,9 +116,9 @@ class WebServer {
         Fournisseur.hasMany(Piece, {foreignKey: 'id_fournisseur'})
         Piece.belongsTo(Fournisseur, {foreignKey: 'id_fournisseur'});
 
-        sequelize.sync({force:true})
+        // sequelize.sync({force:true})
         // sequelize.sync({alter: true})
-        // sequelize.sync()
+        sequelize.sync()
         initializeConfigMiddlewares(this.app);
         this._initializeRoutes();
         initializeErrorMiddlwares(this.app);
