@@ -6,7 +6,7 @@ const Ligne_Achat = sequelize.define(
     {
         id: { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true },
         libelle: { type: DataTypes.STRING, allowNull: false },
-        prix_achat: { type: DataTypes.INTEGER, allowNull: false },
+        prix_achat: { type: DataTypes.FLOAT, allowNull: false },
         quantite: { type: DataTypes.INTEGER, allowNull: false },
         unite: { type: DataTypes.STRING, allowNull: false },
     },

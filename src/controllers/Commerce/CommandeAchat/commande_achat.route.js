@@ -61,10 +61,12 @@ router.post('/getId', validateJWT, async (req, res) => {
             commande = {
                 id: commande.id,
                 libelle: commande.libelle,
-                delai: commande.delai,
+                date_liv_prevue: commande.date_liv_prevue,
+                date_liv_reelle: commande.date_liv_reelle,
                 date: commande.date,
                 id_fournisseur: commande.id_fournisseur,
-                fournisseur: fournisseur.raison_sociale
+                fournisseur: fournisseur.raison_sociale,
+                fournisseurAll: fournisseur
             }
             let listePiece = await ligneAchatRepository.getAllLigneAchatByIdCommande(commande.id)
             let commandeWithLigne = {
@@ -103,7 +105,7 @@ router.put('/update/:id', validateJWT, async (req, res) => {
                     libelle: req.body.listePiece[i].libelle,
                     quantite: req.body.listePiece[i].quantite,
                     unite: req.body.listePiece[i].unite,
-                    prix_vente: req.body.listePiece[i].prix_vente,
+                    prix_achat: req.body.listePiece[i].prix_achat,
                     id_piece: req.body.listePiece[i].id_piece,
                     id_commande: req.params.id
                 }
@@ -113,8 +115,8 @@ router.put('/update/:id', validateJWT, async (req, res) => {
                     await ligneAchatRepository.createLigneAchat(ligneCommande)
                 }
             }
-            const devis = await commandeAchatRepository.updateCommandeAchat(req.params.id, req.body.commandeAchat);
-            res.status(200).send(devis)
+            const commande = await commandeAchatRepository.updateCommandeAchat(req.params.id, req.body.commandeAchat);
+            res.status(200).send(commande)
         } else {
             res.status(400).send({ erreur: "L'id de la commande est invalide" });
         }
@@ -123,20 +125,5 @@ router.put('/update/:id', validateJWT, async (req, res) => {
         res.status(500).send({ erreur: error.message });
     }
 });
-
-// router.delete('/delete/:id', validateJWT, async (req, res) => {
-//     try {
-//         if (req.params.id) {
-//             await devisRepository.deleteDevis(req.params.id)
-//             res.status(200).send({ success: "Devis supprimé avec succés" });
-//         } else {
-//             res.status(400).send({ erreur: "L'id du devis est invalide" });
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({ erreur: error.message });
-//     }
-
-// });
 
 exports.initializeRoutes = () => router;

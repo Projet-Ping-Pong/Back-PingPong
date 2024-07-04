@@ -76,7 +76,7 @@ exports.getPieceAchetableByLibelle = async (libelle) => {
             libelle: {
                 [Op.iLike]: `%${libelle}%`,
             },
-            type: 4,
+            [Op.or]: [{ type: 3 }, { type: 4 }],
             id_fournisseur:  {
                 [Op.not]: null
             }
@@ -106,6 +106,7 @@ exports.updatePiece = async (id, data) => {
             unite: data.unite,
             type: data.type,
             id_gamme: data.id_gamme,
+            id_fournisseur: data.id_fournisseur,
             updatedAt: data.updatedAt
         },
         { where: { id } },

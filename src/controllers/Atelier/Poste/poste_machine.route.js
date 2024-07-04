@@ -15,13 +15,12 @@ router.delete('/delete', validateJWT, async (req, res) => {
         console.log(error);
         res.status(500).send({ erreur: error.message });
     }
-    
 });
 
 router.post('/rechLibelle', validateJWT, async (req, res) => {
     try {
         if (req.body.id_poste) {
-            const machines = postemachineRepository.getAllPosteMachineByLibelle(req.body)
+            const machines = await postemachineRepository.getAllPosteMachineByLibelle(req.body)
             res.status(200).send(machines);
         } else {
             res.status(400).send({ erreur: "id invalide" });

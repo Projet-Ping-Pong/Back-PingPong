@@ -65,6 +65,20 @@ exports.updateUtilisateur = async (id, data) => {
     );
 };
 
+exports.updatePasswordUtilisateur = async (id, data) => {
+    const UtilisateurFound = await Utilisateur.findOne({ where: { id } });
+
+    if (!UtilisateurFound) {
+        throw new Error("Il n'existe aucun utilisateur avec l'id : " + id);
+    }
+
+    return await Utilisateur.update({
+            mdp: bcrypt.hashSync(data.mdp, bcrypt.genSaltSync(10)),
+        },
+        { where: { id } },
+    );
+};
+
 exports.deleteUtilisateur = async (id) => {
     const UtilisateurFound = await Utilisateur.findOne({ where: { id } });
 

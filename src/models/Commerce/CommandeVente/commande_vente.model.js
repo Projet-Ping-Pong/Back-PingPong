@@ -6,7 +6,7 @@ const Commande_Vente = sequelize.define(
     {
         id: { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true },
         libelle: { type: DataTypes.STRING, allowNull: false },
-        date: { type: DataTypes.STRING, allowNull: false },
+        date: { type: DataTypes.DATEONLY, allowNull: false },
     },
     { tableName: 'Commandes_Ventes' },
 );

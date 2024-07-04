@@ -55,7 +55,8 @@ router.post('/getId', validateJWT, async (req, res) => {
                 delai: commande.delai,
                 date: commande.date,
                 id_client: commande.id_client,
-                client: client.raison_sociale
+                client: client.raison_sociale,
+                clientAll: client
             }
             let listePiece = await ligneVenteRepository.getAllLigneVenteByIdCommande(commande.id)
             let listePieceWithoutCommande = await ligneVenteRepository.getAllLigneVenteByIdClientWithoutCommande(commande.id_client)

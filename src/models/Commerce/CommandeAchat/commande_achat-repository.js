@@ -40,6 +40,8 @@ exports.updateCommandeAchat = async (id, data) => {
 
     return await CommandeAchat.update({
             libelle: data.libelle,
+            date_liv_prevue: data.date_liv_prevue,
+            date_liv_reelle: data.date_liv_reelle,
             date: data.date,
             updatedAt: data.updatedAt,
         },

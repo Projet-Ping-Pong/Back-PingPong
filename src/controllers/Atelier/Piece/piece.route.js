@@ -3,6 +3,7 @@ const router = express.Router();
 const pieceRepository = require('../../../models/Atelier/Piece/piece-repository');
 const gammeRepository = require('../../../models/Atelier/Gamme/gamme-repository');
 const piececompoRepository = require('../../../models/Atelier/Piece/piece_compo-repository')
+const fournisseurRepository = require('../../../models/Commerce/Fournisseur/fournisseur-repository')
 const { validateJWT } = require('../../../Security/auth');
 
 router.get('/getAll', validateJWT, async (req, res) => {
@@ -21,10 +22,12 @@ router.post('/getId', validateJWT, async (req, res) => {
             const piece = await pieceRepository.getPieceById(req.body.id)
             const gamme = await gammeRepository.getGammeById(piece.id_gamme)
             const piececompo = await piececompoRepository.getAllPieceCompoByIdPiece(req.body.id)
+            const fournisseur = await fournisseurRepository.getFournisseurById(piece.id_fournisseur)
             res.status(200).send({
                 piece: piece,
                 gamme: gamme,
-                piececompo: piececompo
+                piececompo: piececompo,
+                fournisseur: fournisseur
             });
         } else {
             res.status(400).send({ erreur: "L'id de la pièce est invalide" });

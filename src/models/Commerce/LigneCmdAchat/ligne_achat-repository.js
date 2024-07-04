@@ -62,7 +62,7 @@ exports.updateLigneAchat = async (data, id) => {
             libelle: data.libelle,
             quantite: data.quantite,
             unite: data.unite,
-            prix_vente: data.prix_vente,
+            prix_achat: data.prix_achat,
             id_piece: data.id_piece,
             id_commande: data.id_commande,
             updatedAt: data.updatedAt
